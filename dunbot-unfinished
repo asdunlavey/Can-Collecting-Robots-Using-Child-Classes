@@ -1,0 +1,14 @@
+from robot import Robot
+
+class Dunbot(Robot):
+    def __init__(self, grid):
+        super().__init__(self)
+        self.memory = self.grid
+        input('Dunbot Created')
+
+    def display_memory(self):
+        for row in range(10):
+            print(self.memory[self.row])
+    
+    def brain(self):
+        pass
