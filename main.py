@@ -1,9 +1,9 @@
-from dunbot import Dunbot
-from robot import Robot
+from ranbot import Ranbot
+from manualbot import Manualbot
 
 
 def generate_grid():
-    return [
+    arr = [
         [None] * 10,
         [None] * 10,
         [None] * 10,
@@ -15,6 +15,8 @@ def generate_grid():
         [None] * 10,
         [None] * 10,
     ]
+    arr[0][0] = "R"
+    return arr
 
 
 def display_grid(grid):
@@ -24,14 +26,12 @@ def display_grid(grid):
 
 def main():
     grid = generate_grid()
-    grid[1][0] = 'R'
-
-    robot = Robot(grid)
-    #robot.display_memory()
-    robot.display_grid()
-    robot.move_north()
-    robot.display_grid()
-    robot.move_north()
+    robots = [
+        ranbot := Ranbot(grid),
+        manualbot := Manualbot(grid)
+    ]
+    # robots[0].move_random()
+    # robots[1].move_manually()
 
 
 if __name__ == "__main__":
