@@ -1,40 +1,48 @@
-from random import randint
-
-
 class Robot:
     def __init__(self, grid):
+        self.score = 0
         self.row = 0
-        self.column = 1
-        self.grid = grid
+        self.column = 0
+        self.grid = grid #grid[row][column]
 
+    def move_to_tile(self, r, c):
+        self.grid[self.row + r][self.column + c] = self.grid[self.row][self.column]
+        self.grid[self.row][self.column] = None
+        self.row += r
+        self.column += c
+    
     def display_grid(self):
         for row in range(10):
             print(self.grid[row])
-            
-    
-    def move_random(self):
-        choice = randint(3)
-        if choice == 0: self.move_north()
-        if choice == 1: self.move_east()
-        if choice == 2: self.move_south()
-        if choice == 3: self.move_west()
+        print()
 
     def pickup_can(self):
         pass
-
+    
     def move_north(self):
-        if self.column == 0:
-            input('bump')
-            return
-            
-        self.grid[self.row - 1][self.column] = self.grid[self.row][self.column]
-        self.column -= 1
+        if self.row == 0:
+            self.bump_into_wall()
+            return 
+        self.move_to_tile(-1, 0)
 
     def move_east(self):
-        pass
+        if self.column == 9:
+            self.bump_into_wall()
+            return
+        self.move_to_tile(0, 1)
 
     def move_south(self):
-        pass
+        if self.row == 9:
+            self.bump_into_wall()
+            return
+        self.move_to_tile(1, 0)
 
     def move_west(self):
-        pass
+        if self.column == 0:
+            self.bump_into_wall()
+            return
+        self.move_to_tile(0, -1)
+
+    def bump_into_wall(self):
+        #print('Robot bumped into a wall.')
+        self.score -= 10
